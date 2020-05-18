@@ -33,6 +33,7 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
+const flashCardController = require('./controllers/flashCardController');
 
 /**
  * API keys and Passport configuration.
@@ -242,6 +243,17 @@ app.get('/auth/quickbooks', passport.authorize('quickbooks', { scope: ['com.intu
 app.get('/auth/quickbooks/callback', passport.authorize('quickbooks', { failureRedirect: '/login' }), (req, res) => {
   res.redirect(req.session.returnTo);
 });
+
+//My routes
+app.get('/search', flashCardController.searchGet);
+app.post('/search', flashCardController.searchPost);
+app.get('/create', passportConfig.isAuthenticated, flashCardController.createGet);
+app.post('/create', passportConfig.isAuthenticated, flashCardController.createPost);
+app.get('/pack/:packId', flashCardController.getPack);
+app.get('/edit/:packId', passportConfig.isAuthenticated, flashCardController.editGet);
+app.post('/edit/:packId', passportConfig.isAuthenticated, flashCardController.editPost);
+app.get('/profile/packs', passportConfig.isAuthenticated, flashCardController.personalPacks);
+app.get('/delete/:packId', passportConfig.isAuthenticated, flashCardController.deletePost);
 
 /**
  * Error Handler.

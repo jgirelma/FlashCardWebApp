@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  .page-header
+    h3 Create Flash Card Pack
+
+  form(method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    
+    .form-group.row
+    label(class='col-md-2 col-form-label font-weight-bold', for='name') Name
+    .col-md-8
+        input.form-control(type='text', name='name', id='name', autocomplete='name', autofocus, required)
+    .form-group.row
+    label(class='col-md-2 col-form-label font-weight-bold', for='front') Front
+    .col-md-8
+      textarea.form-control(type='text', name='front', id='front', autocomplete='front', required)
+    .form-group.row
+    label(class='col-md-2 col-form-label font-weight-bold', for='back') Back
+    .col-md-8
+      textarea.form-control(type='text', name='back', id='back', autocomplete='back', required)
+    .form-group.row
+    .col-md-8
+      button.btn.btn-secondary.addCard(type='button') Add Card
+    
+    .form-group
+      .col-md-8.pt-4
+        button.btn.btn-primary(type='submit')
+          i.far.fa-envelope.fa-sm
+          | Create Card Pack

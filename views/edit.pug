@@ -1,0 +1,42 @@
+extends layout
+
+block content
+  .page-header
+    .container.row
+        .col-6
+            h3 Edit Flash Card Pack
+        .col-6
+            if user && user.id == cardPack.owner
+                h3(style="display:flex; justify-content:right")
+                    a(href!=('/delete/' + cardPack.id))
+                        button.btn.btn-secondary.addCard(type='button') Delete Card Pack
+
+  form(method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    
+    .form-group.row
+    label(class='col-md-2 col-form-label font-weight-bold', for='name') Name
+    .col-md-8
+        input.form-control(type='text', name='name', id='name', autocomplete='name', value!=cardPack.name,autofocus, required)
+    .form-group.row
+    for card in cardPack.cards
+        label(class='col-md-2 col-foautofocusrm-label font-weight-bold', for='front') Front
+        .col-md-8
+            textarea.form-control(type='text', name='front', id='front',required)
+                !=card.front
+        .form-group.row
+        label(class='col-md-2 col-form-label font-weight-bold', for='back') Back
+        .col-md-8
+            textarea.form-control(type='text', name='back', id='back', required)
+                !=card.back
+        .form-group.row
+        .dropdown-divider.col-md-8
+    .form-group.row
+    .col-md-8
+      button.btn.btn-secondary.addCard(type='button') Add Card
+    
+    .form-group
+      .col-md-8.pt-4
+        button.btn.btn-primary(type='submit')
+          i.far.fa-envelope.fa-sm
+          | Update
